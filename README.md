@@ -1,9 +1,9 @@
 # todo-javascript-webpack
 
-git clone https://github.com/StevOrc/todo-javascript-webpack.git
-npm install
-npm start
-http://localhost:4000/
+- git clone https://github.com/StevOrc/todo-javascript-webpack.git
+- npm install
+- npm start
+- http://localhost:4000/
 
 Ce projet todo est une introduction au Javascript, à Webpack et Babel :
 
