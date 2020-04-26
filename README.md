@@ -21,4 +21,4 @@ Pour ce qui est du projet, le classique todo nous permet de lister une todo list
     - modification d'une todo
     - toogle une todo
     
-Remerciements à Dyma pour la qualité du cours qui à permis le developpement de ce mini projet.
+Remerciements à Dyma pour cours Javascript qui a permis le developpement de ce mini projet.
