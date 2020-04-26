@@ -1,0 +1,100 @@
+
+* body{
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+p{
+    margin: 0;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+}
+
+h3{
+    margin: 0;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.container{
+    width: 500px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+form{
+    margin-bottom: 20px;
+    display: flex;
+}
+
+form input{
+    flex: 1;
+    margin-right: 15px;
+}
+
+button {
+    padding: 5px 15px;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: 0 3px;
+}
+
+button.btn-blue{
+    background: #74b9ff;
+}
+
+button.btn-green{
+    background: #00cec9;
+}
+
+button.btn-red{
+    background: #ff7675;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+li{
+    display: flex;
+    padding: 8px 0px;
+}
+
+li input{
+    flex: 1;
+}
+
+li p{
+    /* Permet de groth l'elem sur toute la ligen en fonction de la taille des autres */
+    /* il prend toute la place qu'il rest en fonction de la taille déja prise par les autres */
+    flex: 1;
+}
+
+li .todo{
+    background: #eee;
+    flex: 0 0 20px;
+    height: 20px;
+    border-radius: 30px;
+    margin-right: 15px;
+    border: 2px solid #333;
+}
+
+li .done{
+    background: #333;
+}
