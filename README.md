@@ -8,9 +8,9 @@
 Ce projet todo est une introduction au Javascript, à Webpack et Babel :
 
     - Pour le JS, le code reprend les méthodes recommandées (ex: querySelector() ) ainsi qu'une syntaxe la plus claire possible et
-    utilsant notamment ES6 (spread operator, arrow function, string interpolation etc...)
+    utilisant notamment ES6 (spread operator, arrow function, string interpolation etc...)
     
-    - Pour Webpack, l'installation des dépendances nécéssaires avec configuration simple permattant l'utilisation des loaders JS et CSS ainsi que la simulation d'un server web.
+    - Pour Webpack, l'installation des dépendances nécéssaires avec une configuration simple permattant l'utilisation des loaders JS et CSS ainsi que la simulation d'un server web.
     
     - Pour Babel, l'installation des dépendances avec une config minimaliste. Le but étant d'utiliser la syntaxe ES la plus récente.
     
