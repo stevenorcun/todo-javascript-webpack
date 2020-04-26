@@ -1,5 +1,10 @@
 # todo-javascript-webpack
 
+git clone https://github.com/StevOrc/todo-javascript-webpack.git
+npm install
+npm start
+http://localhost:4000/
+
 Ce projet todo est une introduction au Javascript, à Webpack et Babel :
 
     - Pour le JS, le code reprend les méthodes recommandées (ex: querySelector() ) ainsi qu'une syntaxe la plus claire possible et
