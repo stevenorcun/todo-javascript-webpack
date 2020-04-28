@@ -16,9 +16,9 @@ Ce projet todo est une introduction au Javascript, à Webpack et Babel :
     
 Pour ce qui est du projet, le classique todo nous permet de lister une todo liste avec des actions de base :
  
-    - Creation de nouvelle todo
+    - Creation d'une nouvelle todo
     - Suppression d'une todo
     - modification d'une todo
     - toogle une todo
     
-Remerciements à Dyma pour cours Javascript qui a permis le developpement de ce mini projet.
+Remerciements à Dyma pour le cour Javascript qui a permis le developpement de ce mini projet.
