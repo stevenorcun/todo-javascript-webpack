@@ -5,7 +5,7 @@ const ul = document.querySelector('ul');
 const input = document.querySelector('form > input');
 const form = document.querySelector('form');
 
-const dateNow = document.createTextNode(' '+date());
+const dateNow = document.createTextNode(' '+dateNowFormat());
 h3.appendChild(dateNow);
 
 form.addEventListener('submit', (event) => {
@@ -128,7 +128,7 @@ const editTodo = (index, input) => {
 
 displayTodo();
 
-function date(){
+function dateNowFormat(){
     const now = new Date();
     let month = '';
     if(now.getMonth() < 10){
@@ -148,3 +148,6 @@ function date(){
     return dateNow;
 }
 
+function testFunc(){
+    return 'TEST';
+}

@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     // notre fichier principal, notre point d'entré
+    // Creation d'un chunk
     entry: {
         main: path.join(__dirname, "src/index.js")
     },
@@ -15,12 +16,16 @@ module.exports = {
     module: {
         rules: [
             {
+                // On load tous les fichier js et avec babel on les optimise
                 test: /\.js/,
                 exclude: /(node_modules)/,
                 use: ["babel-loader"]
             },
             {
-                test: /\.css$/i, // tous les fihiers css insensible à la casse
+                // On load tous les fichiers css (i : insensible à la casse)
+                test: /\.css$/i,
+                // L'ordre des loader est important, on doit d'abord mettre 'style-loader' avant 'css-loader'
+                // Sinon nous auront une erreur au moment du run de webpack
                 use: ["style-loader", "css-loader"]
             }
         ]
