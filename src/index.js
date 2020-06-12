@@ -1,11 +1,12 @@
 import './style.css'
+const moment = require('moment');
 
 const h3 = document.querySelector('h3');
 const ul = document.querySelector('ul');
 const input = document.querySelector('form > input');
 const form = document.querySelector('form');
 
-const dateNow = document.createTextNode(' '+dateNowFormat());
+const dateNow = document.createTextNode(dateNowFormat());
 h3.appendChild(dateNow);
 
 form.addEventListener('submit', (event) => {
@@ -129,25 +130,6 @@ const editTodo = (index, input) => {
 displayTodo();
 
 function dateNowFormat(){
-    const now = new Date();
-    let month = '';
-    if(now.getMonth() < 10){
-        month = `0${now.getMonth()}`
-    } else {
-        month = now.getMonth();
-    }
 
-    let day = '';
-    if(now.getDate() < 10){
-        day = `0${now.getDate()}`
-    }   else {
-        day = now.getDate();
-    }
-
-    let dateNow = `${day} / ${month} / ${now.getFullYear()}`
-    return dateNow;
-}
-
-function testFunc(){
-    return 'TEST';
+    return moment(new Date()).format('DD / MM / YYYY');
 }
