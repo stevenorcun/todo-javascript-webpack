@@ -17,16 +17,9 @@ form.addEventListener('submit', (event) => {
 })
 
 const todos = [
-    {
-        text: 'faire RXJS',
-        done: false,
-        editMode: false
-    },
-    {
-        text: 'faire Javascript',
-        done: true,
-        editMode: false
-    }
+    { message: 'faire RXJS', done: false, editMode: false},
+    { message: 'faire Javascript', done: true, editMode: false},
+    { message: 'Dormir', done: true, editMode: false},
 ]
 
 const displayTodo = () => {
@@ -45,8 +38,8 @@ const displayTodo = () => {
 const createTodoEditElement = (todo, index) =>{
     const li = document.createElement('li');
     const input = document.createElement('input');
-    input.type = 'text';
-    input.value = todo.text;
+    input.type = 'message';
+    input.value = todo.message;
 
     const btnSave = document.createElement('button');
     btnSave.innerHTML = 'Save';
@@ -75,7 +68,7 @@ const createTodoElement = (todo, index) => {
     const span = document.createElement('span');
     const p = document.createElement('p');
 
-    p.innerHTML = todo.text;
+    p.innerHTML = todo.message;
     span.className = todo.done ? 'todo done': 'todo';
     span.addEventListener('click', () => {
         toogleTodo(index);
@@ -99,9 +92,9 @@ const createTodoElement = (todo, index) => {
     return li;
 }
 
-const addTodo = (text) => {
+const addTodo = (message) => {
     todos.push( {
-        text,
+        message,
         done: false,
         editMode: false
     });
@@ -125,7 +118,7 @@ const toogleEditMode = (index) => {
 
 const editTodo = (index, input) => {
     const value = input.value;
-    todos[index].text = value;
+    todos[index].message = value;
     todos[index].editMode = !todos[index].editMode;
     displayTodo();
 }
