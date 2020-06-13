@@ -71,28 +71,31 @@ const createTodoEditElement = (todo, index) =>{
 const createTodoElement = (todo, index) => {
     const li = document.createElement('li');
     const btnDelete = document.createElement('button');
+    const btnEdit = document.createElement('button');
+    const span = document.createElement('span');
+    const p = document.createElement('p');
+
+    p.innerHTML = todo.text;
+    span.className = todo.done ? 'todo done': 'todo';
+    span.addEventListener('click', () => {
+        toogleTodo(index);
+    });
+
     btnDelete.className = 'btn-red';
     btnDelete.innerHTML = 'Supprimer';
-    // CLOSURE !!!!! accès à index
     btnDelete.addEventListener('click', () =>{
-        event.stopPropagation();
+        // CLOSURE.
+        // Accès à index une fois createTodoElement() terminée
         deleteTodo(index);
     });
-    const btnEdit = document.createElement('button');
+    
     btnEdit.className = 'btn-green';
     btnEdit.innerHTML = 'Editer';
     btnEdit.addEventListener('click', (event) => {
-        event.stopPropagation();
         toogleEditMode(index);
     })
 
-    li.innerHTML= `<span class="todo ${todo.done ? 'done': ''}"></span>
-    <p>${todo.text}</p>
-    `
-    li.addEventListener('click', (event) => {
-        toogleTodo(index);
-    })
-    li.append(btnEdit, btnDelete);
+    li.append(span, p, btnEdit, btnDelete);
     return li;
 }
 
