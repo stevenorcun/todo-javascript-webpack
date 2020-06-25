@@ -1,6 +1,7 @@
 # todo-javascript-webpack
 
 - git clone https://github.com/StevOrc/todo-javascript-webpack.git
+- cd ui
 - npm install
 - npm start
 - http://localhost:4000/
