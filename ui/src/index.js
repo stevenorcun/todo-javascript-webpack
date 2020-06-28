@@ -1,6 +1,8 @@
 import './style.css'
 const moment = require('moment');
 
+const baseURL = 'http://localhost:3000/api/todos/';
+
 const h3 = document.querySelector('h3');
 const ul = document.querySelector('ul');
 const input = document.querySelector('form > input');
@@ -16,11 +18,21 @@ form.addEventListener('submit', (event) => {
     addTodo(value);
 })
 
-const todos = [
-    { message: 'faire RXJS', done: false, editMode: false},
-    { message: 'faire Javascript', done: true, editMode: false},
-    { message: 'Dormir', done: true, editMode: false},
-]
+let todos = [];
+
+const fetAllTodos = async () => {
+    try{
+        const response = await fetch(baseURL);
+        const data = await response.json();
+        todos = data;
+        console.log(todos);
+        displayTodo();
+    }catch(e){
+        console.log(e);
+    }
+}
+
+fetAllTodos();
 
 const displayTodo = () => {
 
@@ -122,8 +134,6 @@ const editTodo = (index, input) => {
     todos[index].editMode = !todos[index].editMode;
     displayTodo();
 }
-
-displayTodo();
 
 function dateNowFormat(){
 
