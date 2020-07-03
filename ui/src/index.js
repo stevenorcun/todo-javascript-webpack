@@ -20,7 +20,7 @@ form.addEventListener('submit', (event) => {
 
 let todos = [];
 
-const fetAllTodos = async () => {
+const fetchAllTodos = async () => {
     try{
         const response = await fetch(baseURL);
         const data = await response.json();
@@ -32,12 +32,12 @@ const fetAllTodos = async () => {
     }
 }
 
-fetAllTodos();
+fetchAllTodos();
 
 const displayTodo = () => {
 
     const todosNodes = todos.map( (todo,index) => {
-        if(todo.editMode){
+        if(todo.isEditMode){
             return createTodoEditElement(todo, index);
         }
         return createTodoElement(todo, index);
@@ -66,7 +66,7 @@ const createTodoEditElement = (todo, index) =>{
     btnCancel.className = 'btn-red';
     btnCancel.addEventListener('click', (event) => {
         event.stopPropagation();
-        toogleEditMode(index);
+        toogleIsEditMode(todo);
     })
 
     li.append(input, btnSave, btnCancel);
@@ -82,8 +82,9 @@ const createTodoElement = (todo, index) => {
 
     p.innerHTML = todo.message;
     span.className = todo.done ? 'todo done': 'todo';
+    span.dataset.id = todo._id;
     span.addEventListener('click', () => {
-        toogleTodo(index);
+        toogleTodo(todo);
     });
 
     btnDelete.className = 'btn-red';
@@ -97,7 +98,7 @@ const createTodoElement = (todo, index) => {
     btnEdit.className = 'btn-green';
     btnEdit.innerHTML = 'Editer';
     btnEdit.addEventListener('click', (event) => {
-        toogleEditMode(index);
+        toogleIsEditMode(todo);
     })
 
     li.append(span, p, btnEdit, btnDelete);
@@ -108,7 +109,7 @@ const addTodo = (message) => {
     todos.push( {
         message,
         done: false,
-        editMode: false
+        isEditMode: false
     });
     displayTodo();
 }
@@ -118,20 +119,42 @@ const deleteTodo = (index) => {
     displayTodo();
 }
 
-const toogleTodo = (index) => {
-    todos[index].done = !todos[index].done;
-    displayTodo();
+const toogleTodo = async (todo) => {
+    try {
+        todo.done = !todo.done;
+        const response = await fetch(`${baseURL}/${todo._id}`, {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(todo)
+        });
+        fetchAllTodos();
+    } catch (error) {
+        console.log(error);
+    }
 };
 
-const toogleEditMode = (index) => {
-    todos[index].editMode = !todos[index].editMode;
-    displayTodo();
+const toogleIsEditMode = async (todo) => {
+    try {
+        todo.isEditMode = !todo.isEditMode;
+        const response = await fetch(`${baseURL}/${todo._id}`, {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify(todo)
+        });
+        fetchAllTodos();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 const editTodo = (index, input) => {
     const value = input.value;
     todos[index].message = value;
-    todos[index].editMode = !todos[index].editMode;
+    todos[index].isEditMode = !todos[index].isEditMode;
     displayTodo();
 }
 
