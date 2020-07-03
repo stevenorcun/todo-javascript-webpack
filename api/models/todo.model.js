@@ -24,7 +24,9 @@ const validateSchema = (todo) => {
     const schema = Joi.object({
         message: Joi.string().min(5).max(100),
         done: Joi.boolean(),
-        isEditMode: Joi.boolean()
+        isEditMode: Joi.boolean(),
+        _id: Joi.string(),
+        __v: Joi.number()
     });
 
     return schema.validate(todo);

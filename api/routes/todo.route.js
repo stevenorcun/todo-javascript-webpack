@@ -38,7 +38,7 @@ router.put('/:id', validateObjectId, async (req, res) => {
     }, { new: true, useFindAndModify: false });
 
     if(!todo) return error404NotFoundId('Todo', res);
-    res.status(200).send({message: 'Success update todo', todo});
+    res.status(200).json({message: 'Success update todo', todo});
 })
 
 router.delete('/:id', validateObjectId, async (req, res) => {
