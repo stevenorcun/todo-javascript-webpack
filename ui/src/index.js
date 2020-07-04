@@ -1,13 +1,17 @@
 import './style.css'
 const moment = require('moment');
 
-const baseURL = 'http://localhost:3000/api/todos/';
+// Data for all application
+const baseURL = 'http://localhost:3000/api/todos';
+let todos = [];
 
+// Targeted elements for the application
 const h3 = document.querySelector('h3');
 const ul = document.querySelector('ul');
 const input = document.querySelector('form > input');
 const form = document.querySelector('form');
 
+// Display date on the title
 const dateNow = document.createTextNode(dateNowFormat());
 h3.appendChild(dateNow);
 
@@ -18,12 +22,12 @@ form.addEventListener('submit', (event) => {
     addTodo(value);
 })
 
-let todos = [];
-
+// GET all todos from the backend
 const fetchAllTodos = async () => {
     try{
         const response = await fetch(baseURL);
         const data = await response.json();
+        if(data.error) return;
         todos = data;
         console.log(todos);
         displayTodo();
@@ -34,6 +38,7 @@ const fetchAllTodos = async () => {
 
 fetchAllTodos();
 
+// Display todo in the view
 const displayTodo = () => {
 
     const todosNodes = todos.map( (todo,index) => {
@@ -47,6 +52,7 @@ const displayTodo = () => {
     ul.append(...todosNodes);
 }
 
+// Create todo element for the view in edit mode
 const createTodoEditElement = (todo, index) =>{
     const li = document.createElement('li');
     const input = document.createElement('input');
@@ -58,7 +64,7 @@ const createTodoEditElement = (todo, index) =>{
     btnSave.className = 'btn-blue';
     btnSave.addEventListener('click', (event) => {
         event.stopPropagation();
-        editTodo(index, input);
+        editTodo(todo, input.value);
     })
 
     const btnCancel = document.createElement('button');
@@ -73,6 +79,7 @@ const createTodoEditElement = (todo, index) =>{
     return li;
 }
 
+// Create todo element for the view in normal mode
 const createTodoElement = (todo, index) => {
     const li = document.createElement('li');
     const btnDelete = document.createElement('button');
@@ -92,7 +99,7 @@ const createTodoElement = (todo, index) => {
     btnDelete.addEventListener('click', () =>{
         // CLOSURE.
         // Accès à index une fois createTodoElement() terminée
-        deleteTodo(index);
+        deleteTodo(todo);
     });
     
     btnEdit.className = 'btn-green';
@@ -105,20 +112,37 @@ const createTodoElement = (todo, index) => {
     return li;
 }
 
-const addTodo = (message) => {
-    todos.push( {
-        message,
-        done: false,
-        isEditMode: false
-    });
-    displayTodo();
+// POST a new todo in DB
+const addTodo = async (message) => {
+    try {
+        let todoJson = JSON.stringify({ done: false, isEditMode: false, message});
+        const response = await fetch(`${baseURL}`, {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: todoJson
+        });
+        fetchAllTodos();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-const deleteTodo = (index) => {
-    todos.splice(index, 1);
-    displayTodo();
+// DELETE todo in db
+const deleteTodo = async (todo) => {
+    try {
+        const response = await fetch(`${baseURL}/${todo._id}`, {
+            method: 'DELETE'
+        });
+        const body = await response.json();
+        fetchAllTodos();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
+// PUT the field 'done' in DB
 const toogleTodo = async (todo) => {
     try {
         todo.done = !todo.done;
@@ -135,6 +159,7 @@ const toogleTodo = async (todo) => {
     }
 };
 
+// PUT the field 'isEditMode' in DB
 const toogleIsEditMode = async (todo) => {
     try {
         todo.isEditMode = !todo.isEditMode;
@@ -151,13 +176,26 @@ const toogleIsEditMode = async (todo) => {
     }
 }
 
-const editTodo = (index, input) => {
-    const value = input.value;
-    todos[index].message = value;
-    todos[index].isEditMode = !todos[index].isEditMode;
-    displayTodo();
+// PUT the field 'message' in DB
+const editTodo = async (todo, value) => {
+    try {
+        todo.message = value;
+        todo.isEditMode = !todo.isEditMode;
+        let todoJson = JSON.stringify(todo);
+        const response = await fetch(`${baseURL}/${todo._id}`, {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: todoJson
+        });
+        fetchAllTodos();
+    } catch (error) {
+        console.log(error);
+    }
 }
 
+// Method that returns today's date in custom format
 function dateNowFormat(){
 
     return moment(new Date()).format('DD / MM / YYYY');
